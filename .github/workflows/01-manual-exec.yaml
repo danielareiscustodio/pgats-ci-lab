@@ -27,7 +27,7 @@ jobs:
 
             # instalacao do yarn
             - name: Instalando Yarn
-              run: npm-install -g yarn
+              run: npm install -g yarn
 
             # instalacao das dependencias  
             - name: Instalando dependencias
@@ -41,7 +41,7 @@ jobs:
             - name: Executando testes e2e
               run: yarn run e2e
 
-              
+
 
 
 
