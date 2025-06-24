@@ -1,19 +1,15 @@
-# CI de Nivel 1 - Disparo automatico a partir de 1 clique
+# CI de Nivel 3 - Disparo após a conclusao de um pipeline
 
 # nome do nosso 'pipeline'
-name: 'Execução Automatica'
+name: 'Execução por Deploy'
 
 # Regras de disparo (gatilhos ou triggers)
-# gatilho de execução automatica = schedule
-# a - minuto
-# b - hora
-# c - dia do mes
-# d - mes 
-# e - dia da semana (0 é domingo)
-# * - significa tudo
+# gatilho de execução a partir de outro pipe = workflow_run
 on:
-    schedule:
-        - cron: '0 6 * * 3'
+    workflow_run:
+        workflows: ['Execução Manual'] #esse nome é exatamente o nome da pipe 01 pq quero monitorar ela
+        types:
+            - completed
 
 # trabalhos/tarefas dentro da pipeline = jobs
 jobs:
