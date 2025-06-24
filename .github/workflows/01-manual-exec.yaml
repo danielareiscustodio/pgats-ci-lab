@@ -6,7 +6,7 @@ name: 'Execução Manual'
 # Regras de disparo (gatilhos ou triggers)
 # gatilho de execução manual = workflow_dispatch
 on:
-    workflow_dispatc:
+    workflow_dispatch:
 
 # trabalhos/tarefas dentro da pipeline = jobs
 jobs:
