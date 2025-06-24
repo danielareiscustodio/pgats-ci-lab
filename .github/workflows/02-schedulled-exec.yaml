@@ -9,7 +9,7 @@ name: 'Execução Automatica'
 # b - hora
 # c - dia do mes
 # d - mes 
-# e - dia da semana (1 é domingo)
+# e - dia da semana (0 é domingo)
 # * - significa tudo
 on:
     schedule:
