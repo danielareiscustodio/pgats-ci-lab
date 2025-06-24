@@ -50,3 +50,11 @@ jobs:
             # execuçao dos e2e
             - name: Executando testes e2e
               run: yarn run e2e
+
+            # upload de artefatos (arquivos ou diretórios) gerados durante o processo de CI/CD
+            # se nao for cancelado, rodar
+            - uses: actions/upload-artifact@v4
+              if: ${{ !cancelled() }} 
+              with:
+                name: report
+                path: ./playwrite-report
