@@ -1,4 +1,5 @@
 # CI de Nivel 3 - Disparo após a conclusao de um pipeline
+# adicionar no VSCODE extensao yaml e github actions para ajudar
 
 # nome do nosso 'pipeline'
 name: 'Execução por Deploy'
