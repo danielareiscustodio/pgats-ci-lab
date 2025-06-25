@@ -1,4 +1,7 @@
 # CI de Nivel 4 - Disparo dos testes dentro do pipe de dev
+# para arrumar o codigo pode rodar:
+# ctrl + shift + P > Format Document With > Prettier Code Formatter (se nao tiver ele precisa adicionar extensao)
+# e para rodar no terminal: npx prettier . --write
 
 name: 'Execuçao Integrada'
 
