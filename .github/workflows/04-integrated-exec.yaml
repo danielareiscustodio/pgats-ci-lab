@@ -7,7 +7,7 @@ on:
 
 jobs:
   inspecao:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4 #lint: verifica se o codigo de inspeçao esta correto
@@ -37,7 +37,7 @@ jobs:
         run: yarn test
 
   e2e-tests:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps:
       # clone do projeto
       - uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
           path: ./playwright-report
 
   deploy:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Simulacao do deploy
