@@ -84,8 +84,6 @@ jobs:
     steps:
       - name: Simulacao do deploy
         run: echo "simulando o deploy com sucesso"
-
-
 # workflow - n1/n2/n3
 #   - jobs - e2e-tests
 #     - steps - instalar deps
