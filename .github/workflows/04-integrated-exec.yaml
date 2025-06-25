@@ -3,7 +3,7 @@
 name: 'Execuçao Integrada'
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   inspecao:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4 #lint: verifica se o codigo de inspeçao esta correto
-         
+
       - name: Instalando Yarn
         run: npm install -g yarn
 
@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-         
+
       - name: Instalando Yarn
         run: npm install -g yarn
 
@@ -37,47 +37,46 @@ jobs:
         run: yarn test
 
   e2e-tests:
-    runs-on: ubuntu_latest    
+    runs-on: ubuntu_latest
     steps:
-        # clone do projeto
-        - uses: actions/checkout@v4
+      # clone do projeto
+      - uses: actions/checkout@v4
 
-        # instalacao do node
-        - uses: actions/setup-node@v4
-          with:
-           node-version: 22.x
+      # instalacao do node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
 
-        # instalacao do yarn
-        - name: Instalando Yarn
-          run: npm install -g yarn
+      # instalacao do yarn
+      - name: Instalando Yarn
+        run: npm install -g yarn
 
-        # instalacao das dependencias  
-        - name: Instalando dependencias
-          run: yarn
+      # instalacao das dependencias
+      - name: Instalando dependencias
+        run: yarn
 
-        # instalacao do Playwright
-        - name: Instalando Playwright
-          run: yarn playwright install
+      # instalacao do Playwright
+      - name: Instalando Playwright
+        run: yarn playwright install
 
-        # execuçao dos e2e
-        - name: Executando testes e2e
-          run: yarn run e2e
+      # execuçao dos e2e
+      - name: Executando testes e2e
+        run: yarn run e2e
 
-        # upload de artefatos (arquivos ou diretórios) gerados durante o processo de CI/CD
-        # se nao for cancelado, rodar
-        - uses: actions/upload-artifact@v4
-          if: ${{ !cancelled() }} 
-          with:
-            name: report
-            path: ./playwright-report
+      # upload de artefatos (arquivos ou diretórios) gerados durante o processo de CI/CD
+      # se nao for cancelado, rodar
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: report
+          path: ./playwright-report
 
   deploy:
-    runs-on: ubuntu_latest 
-        
-    steps:
-        - name: Simulacao do deploy
-          run: echo "simulando o deploy com sucesso"
+    runs-on: ubuntu_latest
 
+    steps:
+      - name: Simulacao do deploy
+        run: echo "simulando o deploy com sucesso"
 # workflow - n1/n2/n3
 #   - jobs - e2e-tests
 #     - steps - instalar deps

@@ -7,55 +7,53 @@ name: 'Execução por Deploy'
 # Regras de disparo (gatilhos ou triggers)
 # gatilho de execução a partir de outro pipe = workflow_run
 on:
-    workflow_run:
-        workflows: ['Execução Manual'] #esse nome é exatamente o nome da pipe 01 pq quero monitorar ela
-        types:
-            - completed
+  workflow_run:
+    workflows: ['Execução Manual'] #esse nome é exatamente o nome da pipe 01 pq quero monitorar ela
+    types:
+      - completed
 
 # trabalhos/tarefas dentro da pipeline = jobs
 jobs:
-    e2e-tests:
-        
-        #maquina que o job vai executar 
-        runs-on: ubuntu-latest
+  e2e-tests:
+    #maquina que o job vai executar
+    runs-on: ubuntu-latest
 
-        # condicional - if
-        # `${ expressao }`
-        # comparacao ==
+    # condicional - if
+    # `${ expressao }`
+    # comparacao ==
 
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
+    # passos do script de build
+    steps:
+      # clone do projeto
+      - uses: actions/checkout@v4
 
-        # passos do script de build
-        steps:
-            # clone do projeto
-            - uses: actions/checkout@v4
+      # instalacao do node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
 
-            # instalacao do node
-            - uses: actions/setup-node@v4
-              with:
-                node-version: 22.x
+      # instalacao do yarn
+      - name: Instalando Yarn
+        run: npm install -g yarn
 
-            # instalacao do yarn
-            - name: Instalando Yarn
-              run: npm install -g yarn
+      # instalacao das dependencias
+      - name: Instalando dependencias
+        run: yarn
 
-            # instalacao das dependencias  
-            - name: Instalando dependencias
-              run: yarn
+      # instalacao do Playwright
+      - name: Instalando Playwright
+        run: yarn playwright install
 
-            # instalacao do Playwright
-            - name: Instalando Playwright
-              run: yarn playwright install
+      # execuçao dos e2e
+      - name: Executando testes e2e
+        run: yarn run e2e
 
-            # execuçao dos e2e
-            - name: Executando testes e2e
-              run: yarn run e2e
-
-            # upload de artefatos (arquivos ou diretórios) gerados durante o processo de CI/CD
-            # se nao for cancelado, rodar
-            - uses: actions/upload-artifact@v4
-              if: ${{ !cancelled() }} 
-              with:
-                name: report
-                path: ./playwright-report
+      # upload de artefatos (arquivos ou diretórios) gerados durante o processo de CI/CD
+      # se nao for cancelado, rodar
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: report
+          path: ./playwright-report
