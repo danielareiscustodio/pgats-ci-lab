@@ -110,3 +110,5 @@ jobs:
 #     - steps - instalar deps
 #     - steps - gerar artefatos da aplicacao
 #     - steps - publicar artefatos de algum ambiente
+#
+# hoje o mais usado é inspecao com unidade, paralelismo com e2e e deploy
