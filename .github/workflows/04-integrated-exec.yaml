@@ -26,6 +26,7 @@ jobs:
 
   unidade:
     runs-on: ubuntu-latest
+    needs: [inspecao]
 
     steps:
       - uses: actions/checkout@v4
@@ -41,6 +42,8 @@ jobs:
 
   e2e-tests:
     runs-on: ubuntu-latest
+    needs: [inspecao]
+
     steps:
       # clone do projeto
       - uses: actions/checkout@v4
@@ -76,10 +79,13 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [e2e-tests]
 
     steps:
       - name: Simulacao do deploy
         run: echo "simulando o deploy com sucesso"
+
+
 # workflow - n1/n2/n3
 #   - jobs - e2e-tests
 #     - steps - instalar deps
@@ -91,15 +97,18 @@ jobs:
 #     - steps - instalar deps
 #     - steps - executar script de lint
 #   - jobs - unidade
+#     - depende de: inspecao
 #     - steps - instalar deps
 #     - steps - executar script de teste de unidade
 #   - jobs - e2e
+#     - depende de: unidade
 #     - steps - instalar deps
 #     - steps - subir a aplicacao localmente
 #     - steps - instalar browser/navegadores
 #     - steps - executar scripts de testes e2e
 #     - steps - publicar resultados de testes (zip/online)
 #   - jobs - deploy
+#     - depende de: e2e
 #     - steps - instalar deps
 #     - steps - gerar artefatos da aplicacao
 #     - steps - publicar artefatos de algum ambiente
